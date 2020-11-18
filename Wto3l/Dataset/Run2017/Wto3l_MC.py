@@ -10,7 +10,7 @@ tree_path_in_file = "passedEvents"
 DYJetsToLL_M10To50_2017 = CMSDataset(
     "DYJetsToLL_M10To50",
     [TFile(os.path.join(input_dir,"DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8.root"),tree_path_in_file,),],
-    xs = 15810,
+    xs = 15810.0,
     sumw = 39505108.0,
     plot_name = "DYJetsToLL_M10To50"
     )
@@ -18,7 +18,7 @@ DYJetsToLL_M10To50_2017 = CMSDataset(
 DYJetsToLL_M50_2017 = CMSDataset(
 	"DYJetsToLL_M50",
 	[TFile(os.path.join(input_dir,"DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8.root"),tree_path_in_file,),],
-	xs = 5343,
+	xs = 5343.0,
 	sumw = 48655356.0,
 	plot_name = "DYJetsToLL_M50"
 	)

@@ -11,5 +11,5 @@ class SignalRegionSkimmer(Module):
 		cfg.collector.selection_weight *= (data["M1"] < 80.) | (data["M1"] > 100.)
 		cfg.collector.selection_weight *= (data["M2"] < 80.) | (data["M2"] > 100.)
 		cfg.collector.selection_weight *= (data["mt"] < 150.)
-		cfg.collector.selection_weight *= ~(data["M1"] == 0.)
-		cfg.collector.selection_weight *= ~(data["M2"] == 0.)
+		cfg.collector.selection_weight *= (data["M1"] > 0.)
+		cfg.collector.selection_weight *= (data["M2"] > 0.)

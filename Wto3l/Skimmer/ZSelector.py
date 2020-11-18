@@ -41,21 +41,21 @@ class ZSelector(Module):
 		data["p3"] = data["idL2"]!=data["idL3"]
 
 		# --------- Define Mass1 as (not) the highest pT muon + highest pT anti-muon -------------------------------------
-		#data["M1"] = (P3).mass*data["p3"] + (P2).mass*(data["p2"] & np.logical_not(data["p3"])) # pick lowest mass possible pair
-		#data["M2"] = (P1).mass*data["p1"] + (P2).mass*(data["p2"] & np.logical_not(data["p1"])) # pick higher mass possible pair
+		data["M1"] = (P3).mass*data["p3"] + (P2).mass*(data["p2"] & np.logical_not(data["p3"])) # pick lowest mass possible pair
+		data["M2"] = (P1).mass*data["p1"] + (P2).mass*(data["p2"] & np.logical_not(data["p1"])) # pick higher mass possible pair
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# --------- Define Mass1 From Neural Network ---------------------------------------------------------------------
-		Selector_vars = ["pTL1","etaL1","phiL1","IsoL1","idL1",
-						 "pTL2","etaL2","phiL2","IsoL2","idL2",
-						 "pTL3","etaL3","phiL3","IsoL3","idL3",
-						 "met","met_phi","dR12","dR13","dR23"]
-		df = pd.DataFrame.from_dict(data)
-		data["guess"] = np.argmax(ZModel.predict(df[Selector_vars]),axis=1)+1
-		data["g3"] = (data["guess"]//3).astype(bool)
-		data["g2"] = (data["guess"]//2).astype(bool)
-		data["g1"] = ~(data["g2"]) & ~(data["g3"])
-		data["M1"] = (P1).mass*data["g1"] + (P2).mass*data["g2"] + (P3).mass*data["g3"] # pick NN guess
-		data["M2"] = (P1).mass*(data["p1"] & ~(data["g1"])) + (P2).mass*(data["p2"] & ~(data["g2"])) + (P3).mass*(data["p3"] & ~(data["g3"])) # pick the possible pair NOT chosen by the NN
+		#Selector_vars = ["pTL1","etaL1","phiL1","IsoL1","idL1",
+		#				 "pTL2","etaL2","phiL2","IsoL2","idL2",
+		#				 "pTL3","etaL3","phiL3","IsoL3","idL3",
+		#				 "met","met_phi","dR12","dR13","dR23"]
+		#df = pd.DataFrame.from_dict(data)
+		#data["guess"] = np.argmax(ZModel.predict(df[Selector_vars]),axis=1)+1
+		#data["g3"] = (data["guess"]//3).astype(bool)
+		#data["g2"] = (data["guess"]//2).astype(bool) & ~(data["g3"])
+		#data["g1"] = ~(data["g2"]) & ~(data["g3"])
+		#data["M1"] = (P1).mass*data["g1"] + (P2).mass*data["g2"] + (P3).mass*data["g3"] # pick NN guess
+		#data["M2"] = (P1).mass*(data["p1"] & ~(data["g1"])) + (P2).mass*(data["p2"] & ~(data["g2"])) + (P3).mass*(data["p3"] & ~(data["g3"])) # pick the possible pair NOT chosen by the NN
 		# ----------------------------------------------------------------------------------------------------------------
 
